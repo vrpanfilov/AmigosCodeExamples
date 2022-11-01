@@ -1,6 +1,6 @@
 # Java Functional Programming
 (https://www.classcentral.com/course/youtube-java-functional-programming-full-course-92917/classroom)
-
+![](readme_assets/envelope.jpg)
 ### Themes — Files
 * Imperative Approach — imperative/Main.java
 * Declarative Approach — imperative/Main.java
