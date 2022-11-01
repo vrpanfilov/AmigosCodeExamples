@@ -1,10 +1,12 @@
 package com.amigoscode.examples;
 
 
+import com.amigoscode.beans.Car;
 import com.amigoscode.beans.Person;
 import com.amigoscode.mockdata.MockData;
 import org.junit.jupiter.api.Test;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -26,7 +28,7 @@ public class HowStreamsWork {
                         .stream()
                         .filter(car -> {
                             System.out.println("filter car " + car);
-                            return car.getPrice() < 10000;
+                            return car.getPrice() < 10_000;
                         })
                         .map(car -> {
                             System.out.println("mapping car " + car);
