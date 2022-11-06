@@ -3,19 +3,28 @@ package com.example.SpringBootMasterClass.customer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.validation.Valid;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
+@Entity
+@Table
 public class Customer {
-    private final Long id;
+    @Id
+    private Long id;
     @NotBlank(message = "name must be not empty")
-    private final String name;
+    private String name;
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @NotBlank(message = "password must be not empty")
-    private final String password;
+    private String password;
     @Email
-    private final String email;
+    private String email;
+
+    public Customer() {
+    }
 
     Customer(Long id,
              String name,
