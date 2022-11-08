@@ -10,12 +10,12 @@ public class JSONPlaceHolderConfiguration {
     CommandLineRunner runner(JSONPlaceHolderClient jsonPlaceHolderClient) {
         return args -> {
             System.out.println("https://jsonplaceholder.typicode.com/posts");
-            jsonPlaceHolderClient.getPosts()
-                    .stream()
-                    .forEach(post -> {
-                        System.out.println(post);
-                        System.out.println();
-                    });
+//            jsonPlaceHolderClient.getPosts()
+//                    .stream()
+//                    .forEach(post -> {
+//                        System.out.println(post);
+//                        System.out.println();
+//                    });
             System.out.println(jsonPlaceHolderClient.getPosts().size());
 
             System.out.println();

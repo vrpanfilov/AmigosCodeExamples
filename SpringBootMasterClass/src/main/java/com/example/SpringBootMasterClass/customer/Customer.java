@@ -17,6 +17,7 @@ public class Customer {
     @NotBlank(message = "name must be not empty")
     private String name;
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @JsonIgnore
     @NotBlank(message = "password must be not empty")
     private String password;
     @Email
