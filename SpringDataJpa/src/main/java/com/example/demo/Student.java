@@ -18,9 +18,7 @@ public class Student {
     @GeneratedValue(
             strategy = GenerationType.SEQUENCE,
             generator = "student_sequence")
-    @Column(name = "id",
-            updatable = false,
-            columnDefinition = "TEXT")
+    @Column(name = "id")
     private Long id;
     @Column(name = "first_name",
             nullable = false,
