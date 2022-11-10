@@ -1,9 +1,11 @@
 package com.example.demo;
 
+import com.github.javafaker.Faker;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.data.domain.Sort;
 
 import java.util.List;
 
@@ -18,40 +20,70 @@ public class Application {
     @Bean
     CommandLineRunner commandLineRunner(StudentRepository studentRepository) {
         return args -> {
-            Student maria = new Student(null,
-                    "Maria",
-                    "Jones",
-                    "maria.jones@amigoscode.edu",
-                    21
-            );
-            Student ahmed = new Student(null,
-                    "Ahmed",
-                    "Ali",
-                    "ahmed.ali@amigoscode.edu",
-                    18
-            );
-            Student jamal = new Student(null,
-                    "Jamal",
-                    "Bond",
-                    "jamal.bond@gmail.com",
-                    32);
-            Student maria2 = new Student(null,
-                    "Maria",
-                    "Jones",
-                    "maria2.jones@amigoscode.edu",
-                    25
-            );
+            generateRamdomStudents(studentRepository);
+//            Sort sort = Sort.by(Sort.Direction.DESC, "firstName");
+            Sort sort = Sort.by("firstName").ascending()
+                    .and(Sort.by("age").descending());
+            sort = Sort.by("age").descending()
+                            .and(Sort.by("firstName").ascending());
+            studentRepository.findAll(sort)
+                    .forEach(student -> System.out.println(
+                            student.getFirstName() + " " + student.getAge()));
 
-            System.out.println("Adding maria, ahmed, jamal and maria2");
-            studentRepository.saveAll(List.of(maria, ahmed, jamal, maria2));
-
-            System.out.println();
+//            createStudents(studentRepository);
 //            repositoryMethods(studentRepository);
 //            jpaQueryMethods(studentRepository);
 //            nativeQueryMethods(studentRepository);
 //            namedParameters(studentRepository);
-            modifyingMethods(studentRepository);
+//            modifyingMethods(studentRepository);
         };
+    }
+
+    private void generateRamdomStudents(StudentRepository studentRepository) {
+        Faker faker = new Faker();
+        for (int i = 0; i < 20; i++) {
+            String firstName = faker.name().firstName();
+            String lastName = faker.name().lastName();
+            String email = String.format("%s.%s@amigoscode.edu",
+                    firstName, lastName);
+            Student student = new Student(null,
+                    firstName,
+                    lastName,
+                    email,
+                    faker.number().numberBetween(17, 28));
+            studentRepository.save(student);
+        }
+    }
+
+    private void createStudents(StudentRepository studentRepository) {
+        Student maria = new Student(null,
+                "Maria",
+                "Jones",
+                "maria.jones@amigoscode.edu",
+                21
+        );
+        Student ahmed = new Student(null,
+                "Ahmed",
+                "Ali",
+                "ahmed.ali@amigoscode.edu",
+                18
+        );
+        Student jamal = new Student(null,
+                "Jamal",
+                "Bond",
+                "jamal.bond@gmail.com",
+                32);
+        Student maria2 = new Student(null,
+                "Maria",
+                "Jones",
+                "maria2.jones@amigoscode.edu",
+                25
+        );
+
+        System.out.println("Adding maria, ahmed, jamal and maria2");
+        studentRepository.saveAll(List.of(maria, ahmed, jamal, maria2));
+
+        System.out.println();
     }
 
     private void repositoryMethods(StudentRepository studentRepository) {
