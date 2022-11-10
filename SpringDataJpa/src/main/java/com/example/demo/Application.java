@@ -35,16 +35,48 @@ public class Application {
                     "Bond",
                     "jamal.bond@gmail.com",
                     32);
+            Student maria2 = new Student(null,
+                    "Maria",
+                    "Jones",
+                    "maria2.jones@amigoscode.edu",
+                    25
+            );
 
-            System.out.println("Adding maria, ahmed and jamal");
-            studentRepository.saveAll(List.of(maria, ahmed, jamal));
+            System.out.println("Adding maria, ahmed, jamal and maria2");
+            studentRepository.saveAll(List.of(maria, ahmed, jamal, maria2));
 
 //            repositoryMethods(studentRepository);
-            queryMethods(studentRepository);
+//            jpaQueryMethods(studentRepository);
+            nativeQueryMethods(studentRepository);
         };
     }
 
-    private void queryMethods(StudentRepository studentRepository) {
+    private void repositoryMethods(StudentRepository studentRepository) {
+        System.out.println();
+        System.out.println("Number of students: " + studentRepository.count());
+
+
+        System.out.println();
+        studentRepository.findById(2L).ifPresentOrElse(System.out::println,
+                () -> System.out.println("Student with id 2 not found"));
+
+        System.out.println();
+        studentRepository.findById(4L).ifPresentOrElse(System.out::println,
+                () -> System.out.println("Student with id 4 not found"));
+
+        System.out.println();
+        System.out.println("Select all students");
+        studentRepository.findAll().forEach(System.out::println);
+
+        System.out.println();
+        System.out.println("Delete maria");
+        studentRepository.deleteById(1L);
+
+        System.out.println();
+        System.out.println("Number of students: " + studentRepository.count());
+    }
+
+    private void jpaQueryMethods(StudentRepository studentRepository) {
         String email = "ahmed.ali@amigoscode.edu";
         System.out.println();
         studentRepository.findByEmail(email)
@@ -99,33 +131,24 @@ public class Application {
         // Это работает неверно, потому что в репозитории @Query
         // перекрывает именной запрос
         System.out.println();
+        System.out.println("Next works wrong!");
         Integer theAge = 21;
-        System.out.println("Students older than " + theAge + ":");
+        System.out.println("Students older than or equal to" + theAge + ":");
         studentRepository.findByAgeGreaterThanEqual(theAge).forEach(System.out::println);
     }
 
-    private void repositoryMethods(StudentRepository studentRepository) {
+    private void nativeQueryMethods(StudentRepository studentRepository) {
         System.out.println();
-        System.out.println("Number of students: " + studentRepository.count());
-
-
-        System.out.println();
-        studentRepository.findById(2L).ifPresentOrElse(System.out::println,
-                () -> System.out.println("Student with id 2 not found"));
-
-        System.out.println();
-        studentRepository.findById(4L).ifPresentOrElse(System.out::println,
-                () -> System.out.println("Student with id 4 not found"));
+        String firstName = "Maria";
+        Integer age = 22;
+        System.out.println("Marias of age >= " + age);
+        studentRepository.findByFirstNameAndAgeGreaterThanEqualNative(firstName, age)
+                .forEach(System.out::println);
 
         System.out.println();
-        System.out.println("Select all students");
-        studentRepository.findAll().forEach(System.out::println);
-
-        System.out.println();
-        System.out.println("Delete maria");
-        studentRepository.deleteById(1L);
-
-        System.out.println();
-        System.out.println("Number of students: " + studentRepository.count());
+        Integer newAge = 20;
+        System.out.println("Marias of age >= " + newAge);
+        studentRepository.findByFirstNameAndAgeGreaterThanEqualNative(firstName, newAge)
+                .forEach(System.out::println);
     }
 }
