@@ -45,16 +45,17 @@ public class Application {
             System.out.println("Adding maria, ahmed, jamal and maria2");
             studentRepository.saveAll(List.of(maria, ahmed, jamal, maria2));
 
+            System.out.println();
 //            repositoryMethods(studentRepository);
 //            jpaQueryMethods(studentRepository);
-            nativeQueryMethods(studentRepository);
+//            nativeQueryMethods(studentRepository);
+//            namedParameters(studentRepository);
+            modifyingMethods(studentRepository);
         };
     }
 
     private void repositoryMethods(StudentRepository studentRepository) {
-        System.out.println();
         System.out.println("Number of students: " + studentRepository.count());
-
 
         System.out.println();
         studentRepository.findById(2L).ifPresentOrElse(System.out::println,
@@ -70,7 +71,7 @@ public class Application {
 
         System.out.println();
         System.out.println("Delete maria");
-        studentRepository.deleteById(1L);
+        studentRepository.deleteStudentById(1L);
 
         System.out.println();
         System.out.println("Number of students: " + studentRepository.count());
@@ -78,7 +79,6 @@ public class Application {
 
     private void jpaQueryMethods(StudentRepository studentRepository) {
         String email = "ahmed.ali@amigoscode.edu";
-        System.out.println();
         studentRepository.findByEmail(email)
                 .ifPresentOrElse(
                         student -> {
@@ -138,7 +138,6 @@ public class Application {
     }
 
     private void nativeQueryMethods(StudentRepository studentRepository) {
-        System.out.println();
         String firstName = "Maria";
         Integer age = 22;
         System.out.println("Marias of age >= " + age);
@@ -150,5 +149,20 @@ public class Application {
         System.out.println("Marias of age >= " + newAge);
         studentRepository.findByFirstNameAndAgeGreaterThanEqualNative(firstName, newAge)
                 .forEach(System.out::println);
+    }
+
+    private void namedParameters(StudentRepository studentRepository) {
+        String firstName = "Maria";
+        Integer age = 21;
+        System.out.println("Marias of age >= " + age);
+        studentRepository.findByFirstNameAndAgeNamed(firstName, age)
+                .forEach(System.out::println);
+    }
+
+    private void modifyingMethods(StudentRepository studentRepository) {
+        Long id = 4L;
+        System.out.println("Delete the student with id " + id);
+        int count = studentRepository.deleteStudentById(id);
+        System.out.println("Deleted " + count + " rows");
     }
 }
