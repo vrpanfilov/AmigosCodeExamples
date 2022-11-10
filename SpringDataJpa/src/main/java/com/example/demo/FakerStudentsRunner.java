@@ -2,16 +2,15 @@ package com.example.demo;
 
 import com.github.javafaker.Faker;
 import org.springframework.boot.CommandLineRunner;
-import org.springframework.context.annotation.Bean;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
 
 @Component
-public class FakerStudents {
-    @Bean
-    CommandLineRunner fakerStudentsRunner(StudentRepository studentRepository) {
+public class FakerStudentsRunner {
+//    @Bean
+    CommandLineRunner fakerStudents(StudentRepository studentRepository) {
         return args -> {
             generateRamdomStudents(studentRepository);
             sorting(studentRepository);

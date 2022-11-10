@@ -6,9 +6,9 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 @Component
-public class LocalStudents {
+public class LocalStudentsRunner {
 //    @Bean
-    CommandLineRunner localStudentsRunner(StudentRepository studentRepository) {
+    CommandLineRunner localStudents(StudentRepository studentRepository) {
         return args -> {
             createStudents(studentRepository);
 //            repositoryMethods(studentRepository);
