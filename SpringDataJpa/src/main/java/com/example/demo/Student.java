@@ -2,7 +2,7 @@ package com.example.demo;
 
 import javax.persistence.*;
 
-@Entity(name = "student")
+@Entity(name = "Student")
 @Table(name = "student",
         uniqueConstraints = {
                 @UniqueConstraint(name = "student_email_uk",

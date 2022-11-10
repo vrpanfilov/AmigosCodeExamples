@@ -95,6 +95,13 @@ public class Application {
         Integer thresholdAge = 20;
         System.out.println("Students older than " + thresholdAge + ":");
         studentRepository.findByAgeIsGreaterThan(thresholdAge).forEach(System.out::println);
+
+        // Это работает неверно, потому что в репозитории @Query
+        // перекрывает именной запрос
+        System.out.println();
+        Integer theAge = 21;
+        System.out.println("Students older than " + theAge + ":");
+        studentRepository.findByAgeGreaterThanEqual(theAge).forEach(System.out::println);
     }
 
     private void repositoryMethods(StudentRepository studentRepository) {
