@@ -2,14 +2,17 @@ package com.example.demo;
 
 import com.github.javafaker.Faker;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Locale;
 
 @Component
-public class OneToOneRunner {
-//    @Bean
-    CommandLineRunner oneToOne(
+public class OneToManyRunner {
+    @Bean
+    CommandLineRunner oneToMany(
             StudentRepository studentRepository,
             StudentIdCardRepository studentIdCardRepository
     ) {
@@ -31,14 +34,25 @@ public class OneToOneRunner {
                     null,
                     "123456789",
                     student);
+
+            student.addBook(
+                    new Book("Clean Code", LocalDateTime.now().minusDays(4)));
+            student.addBook(
+                    new Book("Think and Grow Reach", LocalDateTime.now()));
+            student.addBook(
+                    new Book("Spring Data JPA", LocalDateTime.now().minusYears(1)));
+
             studentIdCardRepository.save(studentIdCard);
 
-            studentRepository.findById(1L).ifPresent(System.out::println);
-
-            studentIdCardRepository.findById(1L)
-                    .ifPresent(System.out::println);
-
-            studentIdCardRepository.deleteById(1L);
+            studentRepository.findById(1L)
+                    .ifPresent(s -> {
+                        System.out.println("Fetch book lazy");
+                        List<Book> books = student.getBooks();
+                        books.forEach(book -> {
+                            System.out.println(s.getFirstName() +
+                                    " borrowed " + book.getBookName());
+                        });
+                    });
         };
     }
 }

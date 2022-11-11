@@ -18,7 +18,10 @@ public class StudentIdCard {
     @GeneratedValue(
             strategy = GenerationType.SEQUENCE,
             generator = "student_card_id_sequence")
-    @Column(name = "id")
+    @Column(
+            name = "id",
+            updatable = false
+    )
     private Long id;
 
     @Column(name = "card_number",
