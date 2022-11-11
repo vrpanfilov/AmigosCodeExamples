@@ -12,10 +12,7 @@ import java.util.Locale;
 @Component
 public class OneToManyRunner {
     @Bean
-    CommandLineRunner oneToMany(
-            StudentRepository studentRepository,
-            StudentIdCardRepository studentIdCardRepository
-    ) {
+    CommandLineRunner oneToMany(StudentRepository studentRepository) {
         return args -> {
             Faker faker = new Faker();
 
@@ -24,6 +21,7 @@ public class OneToManyRunner {
             String email = String.format("%s.%s@amigoscode.edu",
                     firstName.toLowerCase(Locale.ROOT),
                     lastName.toLowerCase());
+
             Student student = new Student(null,
                     firstName,
                     lastName,
@@ -42,7 +40,9 @@ public class OneToManyRunner {
             student.addBook(
                     new Book("Spring Data JPA", LocalDateTime.now().minusYears(1)));
 
-            studentIdCardRepository.save(studentIdCard);
+            student.setStudentIdCard(studentIdCard);
+
+            studentRepository.save(student);
 
             studentRepository.findById(1L)
                     .ifPresent(s -> {
