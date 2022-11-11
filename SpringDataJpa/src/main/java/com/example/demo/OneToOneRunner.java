@@ -21,14 +21,13 @@ public class OneToOneRunner {
             String email = String.format("%s.%s@amigoscode.edu",
                     firstName.toLowerCase(Locale.ROOT),
                     lastName.toLowerCase());
-            Student student = new Student(null,
+            Student student = new Student(
                     firstName,
                     lastName,
                     email,
                     faker.number().numberBetween(17, 28));
 
             StudentIdCard studentIdCard = new StudentIdCard(
-                    null,
                     "123456789",
                     student);
             studentIdCardRepository.save(studentIdCard);

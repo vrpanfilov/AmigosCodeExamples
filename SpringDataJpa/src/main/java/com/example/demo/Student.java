@@ -31,21 +31,21 @@ public class Student {
     @Column(
             name = "first_name",
             nullable = false,
-            columnDefinition = "TEXT"
+            columnDefinition = "text"
     )
     private String firstName;
 
     @Column(
             name = "last_name",
             nullable = false,
-             columnDefinition = "TEXT"
+             columnDefinition = "text"
     )
     private String lastName;
 
     @Column(
             name = "email",
             nullable = false,
-            columnDefinition = "TEXT"
+            columnDefinition = "text"
     )
     private String email;
 
@@ -70,11 +70,19 @@ public class Student {
     )
     private List<Book> books = new ArrayList<>();
 
+    @OneToMany(
+            cascade = {CascadeType.PERSIST, CascadeType.REMOVE},
+            mappedBy = "student"
+    )
+    private  List<Enrollment> enrollments = new ArrayList<>();
+
     public Student() {
     }
 
-    public Student(Long id, String firstName, String lastName, String email, Integer age) {
-        this.id = id;
+    public Student(String firstName,
+                   String lastName,
+                   String email,
+                   Integer age) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -144,6 +152,18 @@ public class Student {
         if (books.contains(book)) {
             books.remove(book);
             book.setStudent(null);
+        }
+    }
+
+    public void addEnrollment(Enrollment enrollment) {
+        if (!enrollments.contains(enrollment)) {
+            enrollments.add(enrollment);
+        }
+    }
+
+    public void removeEnrollment(Enrollment enrollment) {
+        if (enrollments.contains(enrollment)) {
+            enrollments.remove(enrollment);
         }
     }
 

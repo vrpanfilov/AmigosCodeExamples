@@ -20,24 +20,24 @@ public class LocalStudentsRunner {
     }
 
     private void createStudents(StudentRepository studentRepository) {
-        Student maria = new Student(null,
+        Student maria = new Student(
                 "Maria",
                 "Jones",
                 "maria.jones@amigoscode.edu",
                 21
         );
-        Student ahmed = new Student(null,
+        Student ahmed = new Student(
                 "Ahmed",
                 "Ali",
                 "ahmed.ali@amigoscode.edu",
                 18
         );
-        Student jamal = new Student(null,
+        Student jamal = new Student(
                 "Jamal",
                 "Bond",
                 "jamal.bond@gmail.com",
                 32);
-        Student maria2 = new Student(null,
+        Student maria2 = new Student(
                 "Maria",
                 "Jones",
                 "maria2.jones@amigoscode.edu",

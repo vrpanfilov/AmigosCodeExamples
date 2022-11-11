@@ -2,16 +2,16 @@ package com.example.demo;
 
 import com.github.javafaker.Faker;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.Locale;
 
 @Component
-public class OneToManyRunner {
-//    @Bean
-    CommandLineRunner oneToMany(StudentRepository studentRepository) {
+public class ManyToManyRunner {
+    @Bean
+    CommandLineRunner manyToMany(StudentRepository studentRepository) {
         return args -> {
             Faker faker = new Faker();
 
@@ -40,17 +40,21 @@ public class OneToManyRunner {
 
             student.setStudentIdCard(studentIdCard);
 
+            student.addEnrollment(new Enrollment(
+                    new EnrollmentId(1L, 1L),
+                    student,
+                    new Course("Computer Science", "IT"),
+                    LocalDateTime.now())
+            );
+            student.addEnrollment(new Enrollment(
+                    new EnrollmentId(1L, 2L),
+                    student,
+                    new Course("Amigoscode Spring Data JPA", "IT"),
+                    LocalDateTime.now().minusMonths(2L))
+            );
+
             studentRepository.save(student);
 
-            studentRepository.findById(1L)
-                    .ifPresent(s -> {
-                        System.out.println("Fetch book lazy");
-                        List<Book> books = student.getBooks();
-                        books.forEach(book -> {
-                            System.out.println(s.getFirstName() +
-                                    " borrowed " + book.getBookName());
-                        });
-                    });
         };
     }
 }

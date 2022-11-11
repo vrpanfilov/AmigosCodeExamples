@@ -25,7 +25,7 @@ public class FakerStudentsRunner {
             String lastName = faker.name().lastName();
             String email = String.format("%s.%s@amigoscode.edu",
                     firstName, lastName);
-            Student student = new Student(null,
+            Student student = new Student(
                     firstName,
                     lastName,
                     email,

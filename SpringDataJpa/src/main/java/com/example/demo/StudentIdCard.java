@@ -26,7 +26,8 @@ public class StudentIdCard {
 
     @Column(name = "card_number",
             nullable = false,
-            length = 15
+            length = 15,
+            columnDefinition = "text"
     )
     private String cardNumber;
 
@@ -34,14 +35,14 @@ public class StudentIdCard {
     @JoinColumn(
             name = "student_id",
             referencedColumnName = "id",
-            foreignKey = @ForeignKey(name = "student_id_fk")
+            foreignKey = @ForeignKey(name = "student_id_card_student_id_fk")
     )
     private Student student;
 
     public StudentIdCard() {
     }
 
-    public StudentIdCard(Long id, String cardNumber, Student student) {
+    public StudentIdCard(String cardNumber, Student student) {
         this.id = id;
         this.cardNumber = cardNumber;
         this.student = student;

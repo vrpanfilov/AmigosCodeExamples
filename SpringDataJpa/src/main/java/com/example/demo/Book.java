@@ -22,18 +22,20 @@ public class Book {
     )
     private Long id;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+//    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(
             name = "student_id",
             nullable = false,
             referencedColumnName = "id",
-            foreignKey = @ForeignKey(name = "student_id_fk")
+            foreignKey = @ForeignKey(name = "book_student_id_fk")
     )
     private Student student;
 
     @Column(
             name = "book_name",
-            nullable = false
+            nullable = false,
+            columnDefinition = "text"
     )
     private String bookName;
 
@@ -47,14 +49,9 @@ public class Book {
     public Book() {
     }
 
-    public Book(Long id, Student student, String bookName, LocalDateTime createdAt) {
-        this.id = id;
-        this.student = student;
-        this.bookName = bookName;
-        this.createdAt = createdAt;
-    }
-
-    public Book(String bookName, LocalDateTime createdAt) {
+    public Book(
+            String bookName,
+            LocalDateTime createdAt) {
         this.bookName = bookName;
         this.createdAt = createdAt;
     }
