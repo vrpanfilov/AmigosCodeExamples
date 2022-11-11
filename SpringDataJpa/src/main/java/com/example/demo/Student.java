@@ -14,28 +14,46 @@ public class Student {
     @SequenceGenerator(
             name = "student_sequence",
             sequenceName = "student_sequence",
-            allocationSize = 1)
+            allocationSize = 1
+    )
     @GeneratedValue(
             strategy = GenerationType.SEQUENCE,
-            generator = "student_sequence")
+            generator = "student_sequence"
+    )
     @Column(name = "id")
     private Long id;
-    @Column(name = "first_name",
+
+    @Column(
+            name = "first_name",
             nullable = false,
-            columnDefinition = "TEXT")
+            columnDefinition = "TEXT"
+    )
     private String firstName;
-    @Column(name = "last_name",
+
+    @Column(
+            name = "last_name",
             nullable = false,
-            columnDefinition = "TEXT")
+             columnDefinition = "TEXT"
+    )
     private String lastName;
-    @Column(name = "email",
+
+    @Column(
+            name = "email",
             nullable = false,
-            columnDefinition = "TEXT")
+            columnDefinition = "TEXT"
+    )
     private String email;
-    @Column(name = "age",
-            nullable = false)
+
+    @Column(
+            name = "age",
+            nullable = false
+    )
     private Integer age;
-    @OneToOne(mappedBy = "student")
+
+    @OneToOne(
+            mappedBy = "student",
+            orphanRemoval = true
+    )
     private StudentIdCard studentIdCard;
 
     public Student() {
