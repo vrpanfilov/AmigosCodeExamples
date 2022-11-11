@@ -32,6 +32,11 @@ public class OneToOneRunner {
                     "123456789",
                     student);
             studentIdCardRepository.save(studentIdCard);
+
+            studentRepository.findById(1L).ifPresent(System.out::println);
+
+            studentIdCardRepository.findById(1L)
+                    .ifPresent(System.out::println);
         };
     }
 }

@@ -35,6 +35,8 @@ public class Student {
     @Column(name = "age",
             nullable = false)
     private Integer age;
+    @OneToOne(mappedBy = "student")
+    private StudentIdCard studentIdCard;
 
     public Student() {
     }

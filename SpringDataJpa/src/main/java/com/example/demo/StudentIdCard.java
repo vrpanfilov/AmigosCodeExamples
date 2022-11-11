@@ -42,4 +42,13 @@ public class StudentIdCard {
         this.cardNumber = cardNumber;
         this.student = student;
     }
+
+    @Override
+    public String toString() {
+        return "StudentIdCard{" +
+                "id=" + id +
+                ", cardNumber='" + cardNumber + '\'' +
+                ", student=" + student +
+                '}';
+    }
 }
