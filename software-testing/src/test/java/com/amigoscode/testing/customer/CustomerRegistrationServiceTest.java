@@ -112,7 +112,8 @@ class CustomerRegistrationServiceTest {
         then(customerRepository).should().save(customerArgumentCaptor.capture());
         Customer customerArgumentCaptorValue = customerArgumentCaptor.getValue();
         assertThat(customerArgumentCaptorValue)
-                .usingRecursiveComparison().ignoringFields("id");
+                .usingRecursiveComparison().ignoringFields("id")
+                .isEqualTo(customer);
         assertThat(customerArgumentCaptorValue.getId()).isNotNull();
     }
 }
