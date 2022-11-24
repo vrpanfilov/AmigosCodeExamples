@@ -3,13 +3,19 @@ package pvr.SoftwareTesting.customer;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.dao.DataIntegrityViolationException;
 
 import java.util.Optional;
 import java.util.UUID;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 
-@DataJpaTest
+@DataJpaTest(
+        properties = {
+                "spring.jpa.properties.javax.persistence.validation.mode=none"
+        }
+)
 class CustomerRepositoryTest {
 
     @Autowired
@@ -44,10 +50,9 @@ class CustomerRepositoryTest {
 
         // When
         // Then
-
-         // This test does not work with h2, the command does not throw
-//        assertThatThrownBy(() -> underTest.save(customer))
-//                .hasMessageContaining(" ");
+        assertThatThrownBy(() -> underTest.save(customer))
+                .hasMessageContaining("not-null property references a null or transient value")
+                .isInstanceOf(DataIntegrityViolationException.class);
     }
 
 
@@ -91,8 +96,9 @@ class CustomerRepositoryTest {
         // Then
 
         // This test does not work with h2, the command does not throw
-//        assertThatThrownBy(() -> underTest.save(customer))
-//                .hasMessageContaining(" ");
+        assertThatThrownBy(() -> underTest.save(customer))
+                .hasMessageContaining("not-null property references a null or transient value")
+                .isInstanceOf(DataIntegrityViolationException.class);
     }
 
 }
