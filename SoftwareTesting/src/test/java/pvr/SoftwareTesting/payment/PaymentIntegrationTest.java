@@ -36,7 +36,7 @@ public class PaymentIntegrationTest {
     void itShouldCreatePaymentSuccessfully() throws Exception {
         // Given
         UUID customerId = UUID.randomUUID();
-        Customer customer = new Customer(customerId, "James", "0000000");
+        Customer customer = new Customer(customerId, "James", "+445000000000");
 
         ResultActions customerRegResultActions =
                 mockMvc.perform(MockMvcRequestBuilders
@@ -69,6 +69,8 @@ public class PaymentIntegrationTest {
                 .hasValueSatisfying(p -> assertThat(p)
                         .usingRecursiveComparison()
                         .isEqualTo(payment));
+
+        // TODO: Ensure that sms delivered
     }
 
     private String objectToJson(Object object) {

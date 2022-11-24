@@ -2,6 +2,7 @@ package pvr.SoftwareTesting.customer;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import pvr.SoftwareTesting.utils.PhoneNumberValidator;
 
 import java.util.Optional;
 import java.util.UUID;
@@ -10,10 +11,12 @@ import java.util.UUID;
 public class CustomerRegistrationService {
 
     private final CustomerRepository customerRepository;
+    private final PhoneNumberValidator phoneNumberValidator;
 
     @Autowired
-    public CustomerRegistrationService(CustomerRepository customerRepository) {
+    public CustomerRegistrationService(CustomerRepository customerRepository, PhoneNumberValidator phoneNumberValidator) {
         this.customerRepository = customerRepository;
+        this.phoneNumberValidator = phoneNumberValidator;
     }
 
     public void registerNewCustomer(CustomerRegistrationRequest request) {
@@ -24,7 +27,13 @@ public class CustomerRegistrationService {
         // 3. Save customer
 
         Customer requestCustomer = request.getCustomer();
+
         String phoneNumber = requestCustomer.getPhoneNumber();
+        if (!phoneNumberValidator.test(phoneNumber)) {
+            throw new IllegalStateException(
+                    "Phone number " + phoneNumber + " is not valid");
+        }
+
         Optional<Customer> optionalCustomer =
                 customerRepository.selectCustomerByPhoneNumber(phoneNumber);
         if (optionalCustomer.isPresent()) {
@@ -42,7 +51,7 @@ public class CustomerRegistrationService {
 
         customerRepository.save(requestCustomer);
 
-        Optional<Customer> customer =  customerRepository.findById(requestCustomer.getId());
+        Optional<Customer> customer = customerRepository.findById(requestCustomer.getId());
         customer = customer;
     }
 }
