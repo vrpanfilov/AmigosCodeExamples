@@ -2,6 +2,7 @@ package pvr.SoftwareTesting.payment;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import pvr.SoftwareTesting.customer.Customer;
 import pvr.SoftwareTesting.customer.CustomerRepository;
 
 import java.util.List;
@@ -29,6 +30,7 @@ public class PaymentService {
 
     void chargeCard(UUID customerId, PaymentRequest paymentRequest) {
         // 1. Does customer exist, if not throw
+        Iterable<Customer> all = customerRepository.findAll();
         boolean isCustomerFound =
                 customerRepository.findById(customerId).isPresent();
         if (!isCustomerFound) {

@@ -41,5 +41,8 @@ public class CustomerRegistrationService {
         }
 
         customerRepository.save(requestCustomer);
+
+        Optional<Customer> customer =  customerRepository.findById(requestCustomer.getId());
+        customer = customer;
     }
 }
