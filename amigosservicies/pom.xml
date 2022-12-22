@@ -17,7 +17,8 @@
 		<module>eureka-server</module>
 		<module>clients</module>
 		<module>notification</module>
-	</modules>
+        <module>apigw</module>
+    </modules>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
