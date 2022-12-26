@@ -18,7 +18,8 @@
 		<module>clients</module>
 		<module>notification</module>
         <module>apigw</module>
-    </modules>
+		<module>amqp</module>
+	</modules>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
