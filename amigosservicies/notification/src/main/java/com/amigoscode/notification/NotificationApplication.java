@@ -1,7 +1,5 @@
 package com.amigoscode.notification;
 
-import com.amigoscode.amqp.RabbitMQMessageProducer;
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -18,18 +16,18 @@ public class NotificationApplication {
     }
 
 //    @Bean
-    CommandLineRunner commandLineRunner(
-            RabbitMQMessageProducer producer,
-            NotificationConfig notificationConfig
-    ) {
-        return args -> {
-            producer.publish(
-                    new Person("Ali", 18),
-                    notificationConfig.getInternalExchange(),
-                    notificationConfig.getInternalNotificationRoutingKey()
-            );
-        };
-    }
-
-    record Person(String name, int age) {}
+//    CommandLineRunner commandLineRunner(
+//            RabbitMQMessageProducer producer,
+//            NotificationConfig notificationConfig
+//    ) {
+//        return args -> {
+//            producer.publish(
+//                    new Person("Ali", 18),
+//                    notificationConfig.getInternalExchange(),
+//                    notificationConfig.getInternalNotificationRoutingKey()
+//            );
+//        };
+//    }
+//
+//    record Person(String name, int age) {}
 }
